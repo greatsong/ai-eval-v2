@@ -1,0 +1,523 @@
+/* ===== PDF Report Styles ===== */
+/* .pdf- 접두어로 스코프 — 앱 스타일과 충돌 방지 */
+
+.pdf-report {
+  width: 794px;
+  background: #ffffff;
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', -apple-system, sans-serif;
+  color: #1f2937;
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 페이지 나눔 ===== */
+
+.pdf-page-break {
+  page-break-before: always;
+}
+
+.pdf-avoid-break {
+  page-break-inside: avoid;
+}
+
+/* ===== 상단 액센트 바 ===== */
+
+.pdf-accent-bar {
+  height: 5px;
+  background: linear-gradient(90deg, #6366f1 0%, #a78bfa 50%, #c4b5fd 100%);
+  width: 100%;
+}
+
+/* ===== 헤더 ===== */
+
+.pdf-header {
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+.pdf-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.pdf-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 5px 0 0 0;
+  font-weight: 400;
+}
+
+/* ===== 학생 정보 + 점수 카드 ===== */
+
+.pdf-info-card {
+  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin: 0 32px 10px 32px;
+  page-break-inside: avoid;
+}
+
+.pdf-info-row {
+  font-size: 10.5px;
+  color: #6366f1;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.pdf-score-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pdf-grade-badge {
+  font-size: 30px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 60px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pdf-score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.pdf-score-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.pdf-score-max {
+  font-size: 16px;
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.pdf-eval-meta {
+  margin-left: auto;
+  font-size: 9.5px;
+  color: #9ca3af;
+  text-align: right;
+}
+
+/* ===== 섹션 ===== */
+
+.pdf-section {
+  margin: 0 32px;
+  padding-top: 10px;
+}
+
+.pdf-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 5px 0;
+  padding-bottom: 5px;
+  border-bottom: 3px solid #6366f1;
+  display: inline-block;
+}
+
+.pdf-section-title-large {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+  padding-bottom: 6px;
+  border-bottom: 3px solid #6366f1;
+  display: inline-block;
+}
+
+/* ===== 차트 영역 ===== */
+
+.pdf-charts-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  page-break-inside: avoid;
+}
+
+.pdf-chart-radar {
+  flex: 0 0 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdf-chart-radar svg {
+  display: block;
+}
+
+.pdf-chart-bar {
+  flex: 1;
+}
+
+/* ===== 항목별 점수 요약 카드 ===== */
+
+.pdf-score-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.pdf-score-card {
+  background: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-top: 3px solid;
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.pdf-score-card-name {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.pdf-score-card-value {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.pdf-score-card-bar {
+  height: 4px;
+  background: #f3f4f6;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.pdf-score-card-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.pdf-score-card-detail {
+  font-size: 8.5px;
+  color: #9ca3af;
+}
+
+/* ===== 특성 리스트 ===== */
+
+.pdf-char-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.pdf-char-list li {
+  font-size: 11px;
+  color: #1f2937;
+  padding: 4px 0 4px 18px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.pdf-char-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  background: #6366f1;
+  border-radius: 50%;
+}
+
+/* ===== 본문 텍스트 ===== */
+
+.pdf-body-text {
+  font-size: 11.5px;
+  color: #374151;
+  line-height: 1.8;
+  margin: 8px 0 0 0;
+  white-space: pre-wrap;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+/* ===== 반복 페이지 헤더 (2페이지+) ===== */
+
+.pdf-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px 0 32px;
+  margin-bottom: 4px;
+}
+
+.pdf-page-header-title {
+  font-size: 9px;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+.pdf-page-header-student {
+  font-size: 9px;
+  color: #9ca3af;
+}
+
+.pdf-page-header-line {
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #a78bfa);
+  margin: 0 32px 18px 32px;
+}
+
+/* ===== 항목별 상세 진단 ===== */
+
+.pdf-criteria-section {
+  margin: 0 32px;
+}
+
+.pdf-criterion {
+  page-break-inside: avoid;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+}
+
+.pdf-criterion:not(:last-child) {
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.pdf-criterion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pdf-criterion-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.pdf-criterion-score {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.pdf-progress-bar {
+  height: 7px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.pdf-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: none;
+}
+
+.pdf-criterion-weight {
+  font-size: 9px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+/* 항목 세부사항 — 컬러 왼쪽 보더 스타일 */
+
+.pdf-detail-item {
+  padding: 10px 12px 10px 14px;
+  margin-bottom: 7px;
+  border-radius: 8px;
+  border-left: 3px solid;
+}
+
+.pdf-detail-item.evidence {
+  background: #f9fafb;
+  border-left-color: #d1d5db;
+}
+
+.pdf-detail-item.strength {
+  background: #ecfdf5;
+  border-left-color: #6ee7b7;
+}
+
+.pdf-detail-item.weakness {
+  background: #fef3c7;
+  border-left-color: #fcd34d;
+}
+
+.pdf-detail-item.improvement {
+  background: #eef2ff;
+  border-left-color: #a5b4fc;
+}
+
+.pdf-detail-item.next-steps {
+  background: #fdf4ff;
+  border-left-color: #f0abfc;
+}
+
+.pdf-detail-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.pdf-detail-item.evidence .pdf-detail-label { color: #6b7280; }
+.pdf-detail-item.strength .pdf-detail-label { color: #059669; }
+.pdf-detail-item.weakness .pdf-detail-label { color: #d97706; }
+.pdf-detail-item.improvement .pdf-detail-label { color: #4f46e5; }
+.pdf-detail-item.next-steps .pdf-detail-label { color: #c026d3; }
+
+.pdf-detail-text {
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.65;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ===== 성장 제안 카드 ===== */
+
+.pdf-suggestions-section {
+  margin: 0 32px;
+  padding-top: 14px;
+}
+
+.pdf-suggestion-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  page-break-inside: avoid;
+}
+
+.pdf-suggestion-number {
+  flex: 0 0 30px;
+  height: 30px;
+  background: #6366f1;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pdf-suggestion-text {
+  font-size: 11.5px;
+  color: #1f2937;
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+  padding-top: 4px;
+}
+
+/* ===== 생활기록부 초안 ===== */
+
+.pdf-record-section {
+  margin: 0 32px;
+  padding-top: 14px;
+}
+
+.pdf-record-box {
+  background: #f9fafb;
+  border-left: 4px solid #6366f1;
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  margin-top: 10px;
+  page-break-inside: avoid;
+}
+
+.pdf-record-text {
+  font-size: 12px;
+  color: #1f2937;
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* ===== 푸터 ===== */
+
+.pdf-footer {
+  margin: 36px 32px 0 32px;
+  padding-top: 14px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.pdf-footer-text {
+  font-size: 8.5px;
+  color: #9ca3af;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ===== Hidden 컨테이너 ===== */
+
+.pdf-hidden-container {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ===== 막대 차트 보조 레이블 ===== */
+
+.pdf-bar-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pdf-bar-label-row {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  gap: 8px;
+}
+
+.pdf-bar-label-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #374151;
+  min-width: 80px;
+  text-align: right;
+}
+
+.pdf-bar-track {
+  flex: 1;
+  height: 20px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pdf-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.pdf-bar-label-pct {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #374151;
+  min-width: 110px;
+}

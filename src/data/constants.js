@@ -58,3 +58,25 @@ export const EVALUATION_RUNS_OPTIONS = [
     { value: 3, label: '3회 (권장)' },
     { value: 5, label: '5회 (고신뢰도)' }
 ]
+
+// PDF 보고서 디자인 토큰
+export const PDF_COLORS = {
+    primary:       '#6366f1',
+    primaryLight:  '#eef2ff',
+    primaryDark:   '#4f46e5',
+    accent:        '#f0abfc',
+    accentLight:   '#fdf4ff',
+    textDark:      '#1f2937',
+    textMedium:    '#4b5563',
+    textLight:     '#9ca3af',
+    bgSection:     '#f9fafb',
+    bgCard:        '#f3f4f6',
+    strengthBg:    '#ecfdf5',
+    strengthBorder:'#a7f3d0',
+    weaknessBg:    '#fef3c7',
+    weaknessBorder:'#fcd34d',
+    improvementBg: '#eef2ff',
+    improvementBorder: '#c7d2fe',
+    nextStepsBg:   '#fdf4ff',
+    nextStepsBorder: '#f0abfc',
+}

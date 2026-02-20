@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import ClassManagement from './pages/ClassManagement'
 import Dashboard from './pages/Dashboard'
+import PdfTest from './pages/PdfTest'
 import './App.css'
 
 function AppLayout({ children }) {
@@ -25,6 +26,7 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/pdf-test" element={<PdfTest />} />
           <Route
             path="/*"
             element={
