@@ -1,0 +1,308 @@
+.guide-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.guide-container h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 0.25rem;
+}
+
+.guide-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+/* === Sections === */
+.guide-section {
+  margin-bottom: 2.5rem;
+}
+
+.guide-section h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eef2ff;
+}
+
+/* === Steps === */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: #6366f1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.step-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.25rem;
+}
+
+.step-content p {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.step-hint {
+  margin-top: 0.375rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* === Card Grid === */
+.guide-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.guide-card-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.guide-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.guide-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.5rem;
+}
+
+.guide-card p {
+  font-size: 0.85rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* === Mini Table === */
+.mini-table {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.mini-table th {
+  text-align: left;
+  padding: 0.375rem 0.5rem;
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mini-table td {
+  padding: 0.375rem 0.5rem;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* === Code Example === */
+.code-example {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-family: 'SF Mono', 'Consolas', monospace;
+  font-size: 0.8rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* === Result Description === */
+.result-desc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.result-desc-item {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.result-desc-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #1a1a2e;
+  margin-bottom: 0.25rem;
+}
+
+.result-desc-item p {
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+/* === Grade Table === */
+.grade-table {
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-collapse: collapse;
+}
+
+.grade-table th {
+  padding: 0.625rem 1rem;
+  background: #f9fafb;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.grade-table td {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.grade-pill {
+  display: inline-block;
+  padding: 0.125rem 0.625rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.grade-pill.a-plus, .grade-pill.a { background: #dcfce7; color: #166534; }
+.grade-pill.b-plus, .grade-pill.b { background: #dbeafe; color: #1e40af; }
+.grade-pill.c-plus, .grade-pill.c { background: #fef9c3; color: #854d0e; }
+.grade-pill.d-plus, .grade-pill.d { background: #fed7aa; color: #9a3412; }
+.grade-pill.f { background: #fecaca; color: #991b1b; }
+
+/* === Feature List === */
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.feature-list li {
+  padding: 0.75rem 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.feature-list li::before {
+  content: "  ";
+  margin-right: 0.25rem;
+}
+
+/* === FAQ === */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.faq-item summary {
+  padding: 0.875rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::before {
+  content: "Q. ";
+  color: #6366f1;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item[open] summary {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.faq-item p {
+  padding: 0.875rem 1.25rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.faq-item a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.faq-item a:hover {
+  text-decoration: underline;
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .guide-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grade-table th:nth-child(3),
+  .grade-table th:nth-child(4),
+  .grade-table td:nth-child(3),
+  .grade-table td:nth-child(4) {
+    display: none;
+  }
+}

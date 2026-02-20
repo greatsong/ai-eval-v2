@@ -12,6 +12,7 @@ export default function Navbar() {
           <NavLink to="/" end>평가</NavLink>
           <NavLink to="/classes">학급</NavLink>
           <NavLink to="/dashboard">대시보드</NavLink>
+          <NavLink to="/guide">안내</NavLink>
           {isAdmin && <NavLink to="/admin">관리</NavLink>}
         </div>
         <div className="navbar-user">

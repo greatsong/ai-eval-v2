@@ -7,11 +7,14 @@
 ## 기능
 
 - **AI 채팅 평가**: 학생의 AI 대화 내용을 루브릭 기준으로 자동 평가 (Gemini, OpenAI, Claude 지원)
+- **교사 인증**: 접근코드 기반 가입 제한 + 이메일 인증 (관리자가 코드 주기적 변경 가능)
 - **다중 교사**: 이메일 기반 교사 계정, 개별 데이터 격리 (RLS)
 - **학급/학생 관리**: 학급 생성, 학생 명단 등록 (CSV 일괄 등록), 학생별 평가 연결
 - **루브릭 시스템**: 4개 기본 템플릿 + 커스텀 루브릭 생성/공유
+- **K-run 평가**: 동일 채팅을 2~5회 반복 평가하여 신뢰도 향상
 - **통계 대시보드**: 학급별 평균, 등급 분포, 항목별 분석, 시간대별 추이
 - **생활기록부 초안**: AI가 생성한 생활기록부 문구 자동 생성
+- **PDF 보고서**: 평가 결과를 PDF로 다운로드
 
 ## 기술 스택
 
@@ -33,7 +36,7 @@ src/
 ├── App.css / index.css          # 전역 스타일
 ├── lib/supabase.js              # Supabase 클라이언트
 ├── hooks/                       # Custom Hooks
-│   ├── useSupabaseAuth.js       # 인증
+│   ├── useSupabaseAuth.js       # 인증 + 접근코드 검증
 │   ├── useClasses.js            # 학급 CRUD
 │   ├── useStudents.js           # 학생 CRUD
 │   ├── useRubrics.js            # 루브릭 CRUD
@@ -44,10 +47,12 @@ src/
 │   ├── ClassContext.jsx
 │   └── EvaluationContext.jsx
 ├── pages/                       # 페이지
-│   ├── Login.jsx                # 로그인/회원가입
+│   ├── Login.jsx                # 로그인/회원가입 (접근코드 인증 포함)
 │   ├── Home.jsx                 # 평가 메인
 │   ├── ClassManagement.jsx      # 학급/학생 관리
-│   └── Dashboard.jsx            # 통계 대시보드
+│   ├── Dashboard.jsx            # 통계 대시보드
+│   ├── Guide.jsx                # 사용 안내
+│   └── AdminSettings.jsx        # 관리자: 접근코드 관리
 ├── components/                  # 컴포넌트
 │   ├── auth/ProtectedRoute.jsx
 │   ├── common/Navbar.jsx
@@ -59,7 +64,7 @@ src/
 │       ├── ScoreOverview.jsx    # 점수 개요
 │       ├── CriteriaDetail.jsx   # 기준별 상세
 │       └── ApiSettings.jsx      # API 설정
-├── services/                    # 비즈니스 로직 (v1에서 유지)
+├── services/                    # 비즈니스 로직
 │   ├── evaluator.js             # 평가 오케스트레이터
 │   ├── prompts.js               # 프롬프트 생성
 │   ├── responseParser.js        # AI 응답 파싱
@@ -70,7 +75,8 @@ src/
 
 supabase/migrations/             # DB 마이그레이션
 ├── 001_initial_schema.sql       # 테이블 9개 + RLS + Trigger + RPC
-└── 002_seed_data.sql            # 기본 루브릭 템플릿 4개
+├── 002_seed_data.sql            # 기본 루브릭 템플릿 4개
+└── 003_teacher_access_code.sql  # 교사 접근코드 인증 시스템
 ```
 
 ## 시작하기
@@ -82,6 +88,7 @@ supabase/migrations/             # DB 마이그레이션
    ```
    supabase/migrations/001_initial_schema.sql
    supabase/migrations/002_seed_data.sql
+   supabase/migrations/003_teacher_access_code.sql
    ```
 3. **Project Settings > API**에서 `Project URL`과 `anon public` key 확인
 
@@ -109,12 +116,33 @@ npm run dev
 
 ### 4. 첫 사용
 
-1. 회원가입 (이메일 + 비밀번호)
+1. 회원가입 (이름 + **교사 인증 코드** + 이메일 + 비밀번호)
 2. 이메일 인증 확인
 3. 로그인 후 **API 설정**에서 AI API 키 입력 (Gemini/OpenAI/Claude 중 택 1)
 4. **학급 관리**에서 학급 생성 + 학생 등록
 5. **평가** 페이지에서 채팅 내용 붙여넣기 + 루브릭 선택 + 학생 지정 + 평가 시작
 6. **대시보드**에서 학급 통계 확인
+
+> 초기 교사 인증 코드는 `TEACH2024`입니다. 관리자는 `/admin` 페이지에서 코드를 변경할 수 있습니다.
+
+## 교사 인증 시스템
+
+비교사의 무단 가입을 방지하기 위해 **접근코드 기반 인증**을 사용합니다.
+
+### 가입 흐름
+
+```
+이름 + 교사인증코드 + 이메일 + 비밀번호 입력
+  → RPC verify_teacher_access_code() 호출
+  → 코드 유효 → supabase.auth.signUp() 진행
+  → 이메일 인증 완료 후 로그인 가능
+```
+
+### 코드 관리 (관리자)
+
+1. Supabase에서 해당 교사의 `profiles.role`을 `'admin'`으로 변경
+2. 로그인 후 네비게이션 바에 **관리** 메뉴 표시
+3. `/admin` 페이지에서 접근코드 추가/삭제/변경
 
 ## Vercel 배포
 
@@ -146,11 +174,12 @@ npx vercel --prod
 | `criteria_levels` | 수준별 설명 (1~5점) |
 | `evaluations` | 평가 결과 (JSONB criteria_scores) |
 | `api_settings` | 교사별 API 설정 |
-| `global_config` | 시스템 전역 설정 |
+| `global_config` | 시스템 전역 설정 (접근코드 등) |
 
 ### 보안
 
 - **RLS**: 모든 테이블에 적용. 교사는 자기 데이터만 접근 가능
+- **접근코드**: 회원가입 시 교사 인증 코드 필수 (관리자가 주기적 변경)
 - **API 키**: 클라이언트 localStorage에만 저장 (DB 미저장)
 - **채팅 원문**: 서버에 저장하지 않음 (개인정보 보호)
 
@@ -160,6 +189,7 @@ npx vercel --prod
 |------|------|
 | `get_class_dashboard(class_id)` | 학급별 통계 (등급 분포, 항목별 평균, 월별 추이, 최근 평가) |
 | `get_teacher_overview(teacher_id)` | 교사 전체 개요 (학급 수, 학생 수, 총 평가 수, 평균) |
+| `verify_teacher_access_code(code)` | 교사 접근코드 유효성 검증 |
 
 ## 루브릭 템플릿
 
@@ -176,10 +206,11 @@ npx vercel --prod
 |------|----|----|
 | 저장소 | localStorage | Supabase PostgreSQL |
 | 사용자 | 단일 관리자 | 다중 교사 계정 |
+| 가입 인증 | 없음 | 접근코드 + 이메일 인증 |
 | 평가 기록 | 50건 제한 | 무제한 |
 | 학생 관리 | 없음 | 학급별 학생 관리 |
 | 통계 | 기본 성장 차트 | 학급/학생별 대시보드 |
-| 보안 | SHA-256 로컬 비밀번호 | Supabase Auth (JWT) |
+| 보안 | SHA-256 로컬 비밀번호 | Supabase Auth (JWT) + RLS |
 | 데이터 공유 | 브라우저 한정 | 다기기 동기화, 루브릭 공유 |
 
 ## 라이선스
