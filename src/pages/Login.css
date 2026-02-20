@@ -89,3 +89,8 @@
 .btn-link:hover {
   text-decoration: underline;
 }
+
+.form-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}

@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import ClassManagement from './pages/ClassManagement'
 import Dashboard from './pages/Dashboard'
+import AdminSettings from './pages/AdminSettings'
 import PdfTest from './pages/PdfTest'
 import './App.css'
 
@@ -38,6 +39,7 @@ export default function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/classes" element={<ClassManagement />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/admin" element={<AdminSettings />} />
                       </Routes>
                     </AppLayout>
                   </EvaluationProvider>

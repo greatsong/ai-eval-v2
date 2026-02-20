@@ -38,14 +38,25 @@ export function useSupabaseAuth() {
     return { data, error }
   }, [])
 
-  const signUp = useCallback(async (email, password, displayName) => {
+  const verifyAccessCode = useCallback(async (code) => {
+    const { data, error } = await supabase.rpc('verify_teacher_access_code', { code })
+    if (error) return { valid: false, error }
+    return { valid: data === true, error: null }
+  }, [])
+
+  const signUp = useCallback(async (email, password, displayName, accessCode) => {
+    // 접근코드 검증
+    const { valid, error: codeError } = await verifyAccessCode(accessCode)
+    if (codeError) return { data: null, error: { message: '접근코드 확인 중 오류가 발생했습니다.' } }
+    if (!valid) return { data: null, error: { message: '유효하지 않은 교사 인증 코드입니다.' } }
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { display_name: displayName } }
     })
     return { data, error }
-  }, [])
+  }, [verifyAccessCode])
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut()

@@ -10,6 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
+  const [accessCode, setAccessCode] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [signUpSuccess, setSignUpSuccess] = useState(false)
@@ -21,7 +22,7 @@ export default function Login() {
 
     try {
       if (isSignUp) {
-        const { error } = await signUp(email, password, displayName)
+        const { error } = await signUp(email, password, displayName, accessCode)
         if (error) throw error
         setSignUpSuccess(true)
       } else {
@@ -72,6 +73,21 @@ export default function Login() {
                 placeholder="홍길동 선생님"
                 required
               />
+            </div>
+          )}
+
+          {isSignUp && (
+            <div className="form-group">
+              <label htmlFor="accessCode">교사 인증 코드</label>
+              <input
+                id="accessCode"
+                type="text"
+                value={accessCode}
+                onChange={e => setAccessCode(e.target.value)}
+                placeholder="관리자에게 받은 코드 입력"
+                required
+              />
+              <span className="form-hint">교사 인증 코드가 없으면 관리자에게 문의하세요.</span>
             </div>
           )}
 
