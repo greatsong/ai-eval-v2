@@ -84,7 +84,11 @@ criteriaScores 배열에는 반드시 **${rubric.criteria.length}개 항목**이
 2. **evidence 필드**: 반드시 학생 채팅의 원문을 「」로 직접 인용해야 합니다.
 3. **improvement 필드**: Before → After 형식으로 구체적인 수정 예시를 보여주세요.
 4. **nextSteps 필드**: 해당 항목 점수가 3점 이하인 경우만 채우세요.
-5. totalScore는 각 항목 점수에 가중치를 적용한 100점 만점 환산 점수입니다.
-6. evidence, strengths, weaknesses, improvement 필드는 빈 문자열이면 안 됩니다.
-7. 반드시 유효한 JSON 형식으로 응답해주세요.`
+5. **totalScore 계산 공식** (반드시 이 공식을 사용하세요):
+   totalScore = Σ(각 항목의 score ÷ maxScore × weight) (소수점 반올림)
+   예시: 4개 항목이 score=[4,5,3,4], maxScore=5, weight=[20,25,25,30]일 때
+   = (4/5×20) + (5/5×25) + (3/5×25) + (4/5×30) = 16+25+15+24 = 80점
+6. grade 기준: A+(95~100), A(90~94), B+(85~89), B(80~84), C+(75~79), C(70~74), D+(65~69), D(60~64), F(0~59)
+7. evidence, strengths, weaknesses, improvement 필드는 빈 문자열이면 안 됩니다.
+8. 반드시 유효한 JSON 형식으로 응답해주세요.`
 }

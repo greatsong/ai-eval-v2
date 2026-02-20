@@ -115,18 +115,21 @@ export default function Dashboard() {
             <div className="result-card">
               <h3>항목별 평균</h3>
               <div className="criteria-bars">
-                {dashboard.criteriaAverages.map((c, i) => (
-                  <div key={i} className="criteria-bar-item">
-                    <span className="criteria-label">{c.name}</span>
-                    <div className="criteria-bar">
-                      <div
-                        className="criteria-bar-fill"
-                        style={{ width: `${c.avgPercentage}%` }}
-                      />
+                {dashboard.criteriaAverages.map((c, i) => {
+                  const pct = Math.round((c.avgScore / 5) * 100)
+                  return (
+                    <div key={i} className="criteria-bar-item">
+                      <span className="criteria-label">{c.name}</span>
+                      <div className="criteria-bar">
+                        <div
+                          className="criteria-bar-fill"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="criteria-pct">{c.avgScore}/5</span>
                     </div>
-                    <span className="criteria-pct">{c.avgPercentage}%</span>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}

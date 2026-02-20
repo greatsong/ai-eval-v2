@@ -15,27 +15,49 @@ export function parseEvaluationResponse(response, rubric) {
         if (!jsonStr) throw new Error('Empty JSON string')
         const result = JSON.parse(jsonStr)
 
+        const criteriaScores = (result.criteriaScores || []).map((cs) => {
+            const safeScore = cs.score || 0
+            const safeMax = cs.maxScore || 5
+            const calculatedPercentage = Math.round((safeScore / safeMax) * 100)
+            return {
+                criterionId: cs.criterionId || '',
+                name: cs.name || '',
+                score: safeScore,
+                maxScore: safeMax,
+                percentage: cs.percentage !== undefined ? cs.percentage : calculatedPercentage,
+                weight: cs.weight || 0,
+                evidence: (cs.evidence && cs.evidence.trim()) || (cs.feedback && cs.feedback.trim()) || '근거가 제공되지 않았습니다.',
+                strengths: (cs.strengths && cs.strengths.trim()) || '강점 정보가 없습니다.',
+                weaknesses: (cs.weaknesses && cs.weaknesses.trim()) || '개선점 정보가 없습니다.',
+                improvement: (cs.improvement && cs.improvement.trim()) || '추가적인 개선 제안이 없습니다.',
+                nextSteps: cs.nextSteps || '',
+                feedback: cs.feedback || ''
+            }
+        })
+
+        // 가중치 기반 totalScore 검증 및 재계산
+        let totalScore = result.totalScore || 0
+        const hasWeights = rubric.criteria.some(c => c.weight > 0)
+        if (hasWeights && criteriaScores.length === rubric.criteria.length) {
+            const calculatedTotal = Math.round(
+                criteriaScores.reduce((sum, cs, i) => {
+                    const weight = rubric.criteria[i]?.weight || cs.weight || 0
+                    return sum + (cs.score / cs.maxScore) * weight
+                }, 0)
+            )
+            // AI가 계산한 점수와 실제 계산 점수가 5점 이상 차이나면 재계산 값 사용
+            if (Math.abs(totalScore - calculatedTotal) > 5) {
+                console.warn(`totalScore 재계산: AI=${totalScore}, 실제=${calculatedTotal}`)
+                totalScore = calculatedTotal
+            }
+        }
+
+        const grade = calculateGrade(totalScore)
+
         return {
-            totalScore: result.totalScore || 0,
-            grade: result.grade || 'N/A',
-            criteriaScores: (result.criteriaScores || []).map((cs) => {
-                const safeScore = cs.score || 0
-                const safeMax = cs.maxScore || 5
-                const calculatedPercentage = Math.round((safeScore / safeMax) * 100)
-                return {
-                    criterionId: cs.criterionId || '',
-                    name: cs.name || '',
-                    score: safeScore,
-                    maxScore: safeMax,
-                    percentage: cs.percentage !== undefined ? cs.percentage : calculatedPercentage,
-                    evidence: cs.evidence || cs.feedback || '근거가 제공되지 않았습니다.',
-                    strengths: cs.strengths || '',
-                    weaknesses: cs.weaknesses || '',
-                    improvement: cs.improvement || '추가적인 개선 제안이 없습니다.',
-                    nextSteps: cs.nextSteps || '',
-                    feedback: cs.feedback || ''
-                }
-            }),
+            totalScore,
+            grade,
+            criteriaScores,
             characteristics: result.characteristics || [],
             qualitativeEvaluation: result.qualitativeEvaluation || '',
             suggestions: result.suggestions || [],

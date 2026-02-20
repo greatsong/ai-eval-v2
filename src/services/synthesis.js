@@ -20,19 +20,31 @@ export function synthesizeKRunResults(results) {
             }
             criteriaScoresMap[cs.name].scoreSum += cs.score
             criteriaScoresMap[cs.name].count++
-            if (cs.details) criteriaScoresMap[cs.name].allDetails.push(cs.details)
+            // 각 run의 전체 데이터를 보존 (details가 아닌 cs 자체)
+            criteriaScoresMap[cs.name].allDetails.push(cs)
         })
     })
 
     const criteriaScores = Object.values(criteriaScoresMap).map(cs => {
-        const allEvidence = cs.allDetails.map(d => d.evidence || d?.details?.evidence).filter(Boolean)
-        const evidence = allEvidence.sort((a, b) => b.length - a.length)[0] || ''
+        const avgCriteriaScore = Math.round(cs.scoreSum / cs.count)
+        const allEvidence = cs.allDetails.map(d => d.evidence).filter(Boolean)
+        const allStrengths = cs.allDetails.map(d => d.strengths).filter(Boolean)
+        const allWeaknesses = cs.allDetails.map(d => d.weaknesses).filter(Boolean)
+        const allImprovement = cs.allDetails.map(d => d.improvement).filter(Boolean)
+
         return {
+            criterionId: cs.criterionId,
             name: cs.name,
-            score: Math.round(cs.scoreSum / cs.count),
+            score: avgCriteriaScore,
             maxScore: cs.maxScore,
-            evidence,
-            details: cs.allDetails[0]
+            percentage: Math.round((avgCriteriaScore / cs.maxScore) * 100),
+            weight: cs.weight || 0,
+            evidence: allEvidence.sort((a, b) => b.length - a.length)[0] || '',
+            strengths: [...new Set(allStrengths)].join(' '),
+            weaknesses: [...new Set(allWeaknesses)].join(' '),
+            improvement: allImprovement.sort((a, b) => b.length - a.length)[0] || '',
+            nextSteps: cs.allDetails.map(d => d.nextSteps).filter(Boolean)[0] || '',
+            feedback: cs.allDetails.map(d => d.feedback).filter(Boolean)[0] || ''
         }
     })
 
@@ -40,13 +52,19 @@ export function synthesizeKRunResults(results) {
     const characteristics = [...new Set(allCharacteristics)].slice(0, 5)
     const allSuggestions = results.flatMap(r => r.suggestions || [])
     const suggestions = [...new Set(allSuggestions)].slice(0, 4)
-    const studentRecordDraft = results.map(r => r.studentRecordDraft || '').sort((a, b) => b.length - a.length)[0] || ''
+
+    const allDrafts = results.map(r => r.studentRecordDraft || '').filter(Boolean)
+    const studentRecordDraft = allDrafts.sort((a, b) => b.length - a.length)[0] || ''
+
+    const allQualitative = results.map(r => r.qualitativeEvaluation || '').filter(Boolean)
+    const qualitativeEvaluation = allQualitative.sort((a, b) => b.length - a.length)[0] || ''
 
     return {
         totalScore: avgScore,
         grade,
         criteriaScores,
         characteristics,
+        qualitativeEvaluation,
         suggestions,
         studentRecordDraft,
         evaluationMeta: { runs: n, scoreRange: { min: minScore, max: maxScore }, variance: maxScore - minScore }
