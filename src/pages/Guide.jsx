@@ -5,7 +5,7 @@ export default function Guide() {
     <div className="guide-page">
       <div className="guide-container">
         <h1>사용 안내</h1>
-        <p className="guide-subtitle">AI 채팅 평가 시스템 v2 — 과정의 증명 (Proof of Process)</p>
+        <p className="guide-subtitle">문제해결과정에 대한 평가를 돕는 AI 채팅 평가 시스템 — 과정의 증명 (Proof of Process)</p>
 
         {/* 빠른 시작 */}
         <section className="guide-section">

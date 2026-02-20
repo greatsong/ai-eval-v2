@@ -57,7 +57,7 @@ export default function Login() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <h1>AI 채팅 평가 시스템</h1>
+          <h1>문제해결과정에 대한 평가를 돕는 AI 채팅 평가 시스템</h1>
           <p>과정의 증명 (Proof of Process)</p>
         </div>
 
