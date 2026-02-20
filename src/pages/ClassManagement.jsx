@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useAuth } from '../context/AuthContext'
 import { useClassContext } from '../context/ClassContext'
 import { useStudents } from '../hooks/useStudents'
 import './ClassManagement.css'
 
 export default function ClassManagement() {
-  const { user } = useAuth()
-  const { classes, fetchClasses, createClass, deleteClass } = useClassContext()
+  const { classes, createClass, deleteClass } = useClassContext()
   const [selectedClassId, setSelectedClassId] = useState(null)
   const { students, fetchStudents, addStudent, bulkImportStudents, deleteStudent } = useStudents(selectedClassId)
   const [showNewClass, setShowNewClass] = useState(false)

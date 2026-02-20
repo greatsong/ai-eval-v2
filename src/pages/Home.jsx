@@ -115,7 +115,7 @@ export default function Home() {
         </div>
       )}
 
-      {evaluationResult && <EvaluationResult result={evaluationResult} rubric={currentRubric} />}
+      {evaluationResult && <EvaluationResult result={evaluationResult} />}
     </div>
   )
 }

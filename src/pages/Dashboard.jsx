@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   useEffect(() => { fetchOverview() }, [fetchOverview])
   useEffect(() => { if (selectedClassId) fetchDashboard() }, [selectedClassId, fetchDashboard])
-  useEffect(() => { if (user?.id) fetchEvaluations({ limit: 20 }) }, [user?.id])
+  useEffect(() => { if (user?.id) fetchEvaluations({ limit: 20 }) }, [user?.id, fetchEvaluations])
 
   return (
     <div className="dashboard">

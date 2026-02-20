@@ -2,7 +2,7 @@ import { getGradeColor } from '../../data/constants'
 import ScoreOverview from './ScoreOverview'
 import CriteriaDetail from './CriteriaDetail'
 
-export default function EvaluationResult({ result, rubric }) {
+export default function EvaluationResult({ result }) {
   if (!result) return null
 
   const gradeColor = getGradeColor(result.grade)

@@ -31,6 +31,7 @@ export function EvaluationProvider({ children }) {
 
   useEffect(() => {
     if (user?.id) rubricState.fetchRubrics()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id])
 
   return (

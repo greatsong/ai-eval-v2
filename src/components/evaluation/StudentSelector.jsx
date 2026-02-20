@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useClassContext } from '../../context/ClassContext'
 import { useStudents } from '../../hooks/useStudents'
 

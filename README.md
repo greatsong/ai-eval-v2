@@ -21,12 +21,16 @@
 | Router | React Router v7 |
 | Backend/DB | Supabase (PostgreSQL + Auth + Realtime) |
 | 차트 | Chart.js + react-chartjs-2 |
+| PDF 출력 | html2pdf.js |
 | 배포 | Vercel |
 
 ## 프로젝트 구조
 
 ```
 src/
+├── main.jsx                     # 앱 진입점
+├── App.jsx                      # 라우터 설정
+├── App.css / index.css          # 전역 스타일
 ├── lib/supabase.js              # Supabase 클라이언트
 ├── hooks/                       # Custom Hooks
 │   ├── useSupabaseAuth.js       # 인증
@@ -48,11 +52,19 @@ src/
 │   ├── auth/ProtectedRoute.jsx
 │   ├── common/Navbar.jsx
 │   └── evaluation/              # 평가 UI 컴포넌트
+│       ├── ChatInput.jsx        # 채팅 입력
+│       ├── RubricSelector.jsx   # 루브릭 선택
+│       ├── StudentSelector.jsx  # 학생 선택
+│       ├── EvaluationResult.jsx # 평가 결과 표시
+│       ├── ScoreOverview.jsx    # 점수 개요
+│       ├── CriteriaDetail.jsx   # 기준별 상세
+│       └── ApiSettings.jsx      # API 설정
 ├── services/                    # 비즈니스 로직 (v1에서 유지)
 │   ├── evaluator.js             # 평가 오케스트레이터
 │   ├── prompts.js               # 프롬프트 생성
 │   ├── responseParser.js        # AI 응답 파싱
 │   ├── synthesis.js             # K-run 결과 합성
+│   ├── utils.js                 # 유틸리티 함수
 │   └── providers/               # AI API 호출 (Gemini, OpenAI, Claude)
 └── data/constants.js            # 상수 정의
 
@@ -93,7 +105,7 @@ npm install
 npm run dev
 ```
 
-`http://localhost:5173` 접속
+`http://localhost:4002` 접속
 
 ### 4. 첫 사용
 
