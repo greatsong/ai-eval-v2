@@ -1,20 +1,20 @@
-# AI 채팅 평가 시스템 v2
+# AI 채팅 평가 시스템 v2 — 과정의 증명 (Proof of Process)
 
 학생의 AI 채팅 활용 능력을 루브릭 기반으로 평가하는 교육용 웹 애플리케이션입니다.
 
-**v2 핵심 변경사항**: localStorage 기반에서 **Supabase(PostgreSQL)** 기반으로 전면 전환하여 다중 교사 지원, 영구 데이터 보존, 학급/학생 관리, 통계 대시보드를 제공합니다.
+**배포 URL**: https://pro-of-ai.vercel.app
 
-## 기능
+## 핵심 기능
 
-- **AI 채팅 평가**: 학생의 AI 대화 내용을 루브릭 기준으로 자동 평가 (Gemini, OpenAI, Claude 지원)
-- **교사 인증**: 접근코드 기반 가입 제한 + 이메일 인증 (관리자가 코드 주기적 변경 가능)
-- **다중 교사**: 이메일 기반 교사 계정, 개별 데이터 격리 (RLS)
-- **학급/학생 관리**: 학급 생성, 학생 명단 등록 (CSV 일괄 등록), 학생별 평가 연결
-- **루브릭 시스템**: 4개 기본 템플릿 + 커스텀 루브릭 생성/공유
-- **K-run 평가**: 동일 채팅을 2~5회 반복 평가하여 신뢰도 향상
-- **통계 대시보드**: 학급별 평균, 등급 분포, 항목별 분석, 시간대별 추이
+- **학생 자기 평가**: 학생이 초대코드로 접속 → 채팅 붙여넣기 → 즉시 결과 확인 + PDF 다운로드 (로그인 불필요)
+- **평가 세션**: 하나의 학급에서 과목/활동별로 서로 다른 루브릭으로 동시 평가 가능
+- **교사 직접 평가**: 교사가 학생의 채팅을 직접 평가 (K-run 지원)
+- **루브릭 시스템**: 4개 기본 템플릿 + 커스텀 루브릭 생성
+- **통계 대시보드**: 등급 분포, 항목별 평균, 월별 점수 추이, 최근 평가 이력
 - **생활기록부 초안**: AI가 생성한 생활기록부 문구 자동 생성
-- **PDF 보고서**: 평가 결과를 PDF로 다운로드
+- **PDF 보고서**: 레이더 차트 + 항목별 바 차트 포함 보고서 다운로드
+- **다중 교사 지원**: 이메일 인증 + 접근코드 기반 교사 가입, RLS로 데이터 격리
+- **학생 프라이버시**: 번호 입력 → 이름 확인 방식 (다른 학생 명단 노출 없음)
 
 ## 기술 스택
 
@@ -22,9 +22,9 @@
 |------|------|
 | Frontend | React 19 + Vite |
 | Router | React Router v7 |
-| Backend/DB | Supabase (PostgreSQL + Auth + Realtime) |
-| 차트 | Chart.js + react-chartjs-2 |
+| Backend/DB | Supabase (PostgreSQL + Auth + RLS + RPC) |
 | PDF 출력 | html2pdf.js |
+| AI 제공자 | Google Gemini, OpenAI, Anthropic Claude |
 | 배포 | Vercel |
 
 ## 프로젝트 구조
@@ -33,7 +33,6 @@
 src/
 ├── main.jsx                     # 앱 진입점
 ├── App.jsx                      # 라우터 설정
-├── App.css / index.css          # 전역 스타일
 ├── lib/supabase.js              # Supabase 클라이언트
 ├── hooks/                       # Custom Hooks
 │   ├── useSupabaseAuth.js       # 인증 + 접근코드 검증
@@ -46,37 +45,62 @@ src/
 │   ├── AuthContext.jsx
 │   ├── ClassContext.jsx
 │   └── EvaluationContext.jsx
-├── pages/                       # 페이지
-│   ├── Login.jsx                # 로그인/회원가입 (접근코드 인증 포함)
-│   ├── Home.jsx                 # 평가 메인
-│   ├── ClassManagement.jsx      # 학급/학생 관리
+├── pages/
+│   ├── Login.jsx                # 로그인/회원가입 (접근코드 인증)
+│   ├── Home.jsx                 # 교사 직접 평가
+│   ├── ClassManagement.jsx      # 학급/학생/세션 관리
 │   ├── Dashboard.jsx            # 통계 대시보드
+│   ├── StudentEval.jsx          # 학생 자기 평가 (공개 라우트)
 │   ├── Guide.jsx                # 사용 안내
 │   └── AdminSettings.jsx        # 관리자: 접근코드 관리
-├── components/                  # 컴포넌트
+├── components/
 │   ├── auth/ProtectedRoute.jsx
 │   ├── common/Navbar.jsx
-│   └── evaluation/              # 평가 UI 컴포넌트
-│       ├── ChatInput.jsx        # 채팅 입력
-│       ├── RubricSelector.jsx   # 루브릭 선택
-│       ├── StudentSelector.jsx  # 학생 선택
-│       ├── EvaluationResult.jsx # 평가 결과 표시
-│       ├── ScoreOverview.jsx    # 점수 개요
-│       ├── CriteriaDetail.jsx   # 기준별 상세
-│       └── ApiSettings.jsx      # API 설정
+│   ├── evaluation/              # 평가 UI 컴포넌트
+│   └── pdf/                     # PDF 보고서 레이아웃
 ├── services/                    # 비즈니스 로직
 │   ├── evaluator.js             # 평가 오케스트레이터
 │   ├── prompts.js               # 프롬프트 생성
 │   ├── responseParser.js        # AI 응답 파싱
 │   ├── synthesis.js             # K-run 결과 합성
-│   ├── utils.js                 # 유틸리티 함수
+│   ├── pdfGenerator.js          # PDF 생성
 │   └── providers/               # AI API 호출 (Gemini, OpenAI, Claude)
 └── data/constants.js            # 상수 정의
 
-supabase/migrations/             # DB 마이그레이션
-├── 001_initial_schema.sql       # 테이블 9개 + RLS + Trigger + RPC
+supabase/migrations/
+├── 001_initial_schema.sql       # 테이블 + RLS + Trigger + RPC
 ├── 002_seed_data.sql            # 기본 루브릭 템플릿 4개
-└── 003_teacher_access_code.sql  # 교사 접근코드 인증 시스템
+├── 003_teacher_access_code.sql  # 교사 접근코드 인증
+├── 004_student_self_eval.sql    # 학생 평가 RPC (get_class_for_student, save_student_evaluation)
+├── 005_demo_class.sql           # 데모 학급 + 학생 25명
+├── 006_demo_class_to_admin.sql  # 데모 학급 관리자 이전
+├── 007_demo_evaluations.sql     # 시간별 성장 데모 평가 데이터
+├── 008_fix_admin_display_name.sql
+├── 009_eval_sessions.sql        # 평가 세션 테이블 + RPC 업데이트
+└── 010_fix_criteria_averages.sql # 대시보드 항목별 평균 쿼리 수정
+```
+
+## 평가 흐름
+
+### 학생 자기 평가 (주요 흐름)
+
+```
+학생 → /proofai 접속 (로그인 불필요)
+  → 초대코드 입력
+  → 출석번호 입력 → 이름 확인
+  → AI 채팅 내용 붙여넣기
+  → 평가 결과 확인 + PDF 다운로드
+  → 결과 자동 저장 (교사 대시보드에 반영)
+```
+
+### 교사 직접 평가
+
+```
+교사 → 로그인 → 평가 페이지
+  → 루브릭 선택 + 학생 선택
+  → 채팅 내용 붙여넣기
+  → K-run 설정 (1~5회)
+  → 평가 결과 확인/저장
 ```
 
 ## 시작하기
@@ -84,11 +108,9 @@ supabase/migrations/             # DB 마이그레이션
 ### 1. Supabase 프로젝트 설정
 
 1. [supabase.com](https://supabase.com)에서 새 프로젝트 생성
-2. **SQL Editor**에서 마이그레이션 파일 순서대로 실행:
-   ```
-   supabase/migrations/001_initial_schema.sql
-   supabase/migrations/002_seed_data.sql
-   supabase/migrations/003_teacher_access_code.sql
+2. 마이그레이션 파일 순서대로 적용:
+   ```bash
+   npx supabase db push
    ```
 3. **Project Settings > API**에서 `Project URL`과 `anon public` key 확인
 
@@ -118,57 +140,24 @@ npm run dev
 
 1. 회원가입 (이름 + **교사 인증 코드** + 이메일 + 비밀번호)
 2. 이메일 인증 확인
-3. 로그인 후 **API 설정**에서 AI API 키 입력 (Gemini/OpenAI/Claude 중 택 1)
-4. **학급 관리**에서 학급 생성 + 학생 등록
-5. **평가** 페이지에서 채팅 내용 붙여넣기 + 루브릭 선택 + 학생 지정 + 평가 시작
-6. **대시보드**에서 학급 통계 확인
+3. 로그인 → **학급 관리**에서 학급 생성 + 학생 등록
+4. **학생 평가 설정**에서 AI 제공자/API 키/모델 설정
+5. **평가 세션** 추가 (과목별 루브릭 + 초대코드 자동 생성)
+6. 학생에게 URL(`/proofai`) + 초대코드 안내
+7. **대시보드**에서 학급 통계 확인
 
 > 초기 교사 인증 코드는 `TEACH2024`입니다. 관리자는 `/admin` 페이지에서 코드를 변경할 수 있습니다.
 
-## 교사 인증 시스템
-
-비교사의 무단 가입을 방지하기 위해 **접근코드 기반 인증**을 사용합니다.
-
-### 가입 흐름
-
-```
-이름 + 교사인증코드 + 이메일 + 비밀번호 입력
-  → RPC verify_teacher_access_code() 호출
-  → 코드 유효 → supabase.auth.signUp() 진행
-  → 이메일 인증 완료 후 로그인 가능
-```
-
-### 코드 관리 (관리자)
-
-1. Supabase에서 해당 교사의 `profiles.role`을 `'admin'`으로 변경
-2. 로그인 후 네비게이션 바에 **관리** 메뉴 표시
-3. `/admin` 페이지에서 접근코드 추가/삭제/변경
-
-## Vercel 배포
-
-1. GitHub 저장소에 push
-2. [vercel.com](https://vercel.com)에서 프로젝트 import
-3. **Environment Variables** 설정:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-4. Deploy 클릭
-
-또는 CLI로:
-
-```bash
-npm run build
-npx vercel --prod
-```
-
 ## 데이터베이스
 
-### 테이블 (9개)
+### 테이블 (10개)
 
 | 테이블 | 용도 |
 |--------|------|
 | `profiles` | 교사 프로필 (auth.users 확장) |
-| `classes` | 학급 (학년도, 학기, 교과) |
+| `classes` | 학급 (학년도, 학기, 교과, API 설정) |
 | `students` | 학생 (계정 없음, 교사 관리) |
+| `eval_sessions` | 평가 세션 (학급별 루브릭 + 초대코드) |
 | `rubrics` | 루브릭 (템플릿 + 커스텀) |
 | `rubric_criteria` | 평가 기준 (가중치, 순서) |
 | `criteria_levels` | 수준별 설명 (1~5점) |
@@ -176,20 +165,22 @@ npx vercel --prod
 | `api_settings` | 교사별 API 설정 |
 | `global_config` | 시스템 전역 설정 (접근코드 등) |
 
-### 보안
-
-- **RLS**: 모든 테이블에 적용. 교사는 자기 데이터만 접근 가능
-- **접근코드**: 회원가입 시 교사 인증 코드 필수 (관리자가 주기적 변경)
-- **API 키**: 클라이언트 localStorage에만 저장 (DB 미저장)
-- **채팅 원문**: 서버에 저장하지 않음 (개인정보 보호)
-
 ### Database Functions (RPC)
 
 | 함수 | 용도 |
 |------|------|
-| `get_class_dashboard(class_id)` | 학급별 통계 (등급 분포, 항목별 평균, 월별 추이, 최근 평가) |
-| `get_teacher_overview(teacher_id)` | 교사 전체 개요 (학급 수, 학생 수, 총 평가 수, 평균) |
-| `verify_teacher_access_code(code)` | 교사 접근코드 유효성 검증 |
+| `get_class_for_student(invite_code)` | 초대코드로 학급/세션 정보 조회 (학생용) |
+| `save_student_evaluation(invite_code, student_id, evaluation)` | 학생 평가 결과 저장 |
+| `get_class_dashboard(class_id)` | 학급별 통계 (등급 분포, 항목별 평균, 월별 추이) |
+| `get_teacher_overview(teacher_id)` | 교사 전체 개요 |
+| `verify_teacher_access_code(code)` | 교사 접근코드 검증 |
+
+### 보안
+
+- **RLS**: 모든 테이블에 적용. 교사는 자기 데이터만 접근 가능
+- **접근코드**: 회원가입 시 교사 인증 코드 필수
+- **학생 프라이버시**: 번호 입력 → 이름 확인 (다른 학생 명단 미노출)
+- **채팅 원문**: 서버에 저장하지 않음 (개인정보 보호)
 
 ## 루브릭 템플릿
 
@@ -200,18 +191,16 @@ npx vercel --prod
 | 과학 탐구 | 가설 설정, 데이터 분석, 과학적 추론, 보고서 작성 |
 | 코딩/프로그래밍 | 문제 분해, 코드 이해, 디버깅, 코드 개선 |
 
-## v1 vs v2
+## 배포
 
-| 항목 | v1 | v2 |
-|------|----|----|
-| 저장소 | localStorage | Supabase PostgreSQL |
-| 사용자 | 단일 관리자 | 다중 교사 계정 |
-| 가입 인증 | 없음 | 접근코드 + 이메일 인증 |
-| 평가 기록 | 50건 제한 | 무제한 |
-| 학생 관리 | 없음 | 학급별 학생 관리 |
-| 통계 | 기본 성장 차트 | 학급/학생별 대시보드 |
-| 보안 | SHA-256 로컬 비밀번호 | Supabase Auth (JWT) + RLS |
-| 데이터 공유 | 브라우저 한정 | 다기기 동기화, 루브릭 공유 |
+```bash
+npm run build
+npx vercel --prod
+```
+
+환경 변수:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
 
 ## 라이선스
 

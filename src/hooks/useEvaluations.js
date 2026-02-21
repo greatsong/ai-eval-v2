@@ -1,14 +1,13 @@
 import { useState, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
 
-export function useEvaluations(userId, filters = {}) {
+export function useEvaluations(userId) {
   const [evaluations, setEvaluations] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const fetchEvaluations = useCallback(async (overrideFilters) => {
+  const fetchEvaluations = useCallback(async (filters = {}) => {
     if (!userId) return
     setLoading(true)
-    const f = overrideFilters || filters
 
     let query = supabase
       .from('evaluations')
@@ -16,16 +15,16 @@ export function useEvaluations(userId, filters = {}) {
       .eq('teacher_id', userId)
       .order('created_at', { ascending: false })
 
-    if (f.classId) query = query.eq('class_id', f.classId)
-    if (f.studentId) query = query.eq('student_id', f.studentId)
-    if (f.rubricId) query = query.eq('rubric_id', f.rubricId)
-    if (f.limit) query = query.limit(f.limit)
+    if (filters.classId) query = query.eq('class_id', filters.classId)
+    if (filters.studentId) query = query.eq('student_id', filters.studentId)
+    if (filters.rubricId) query = query.eq('rubric_id', filters.rubricId)
+    if (filters.limit) query = query.limit(filters.limit)
 
     const { data, error } = await query
     if (!error) setEvaluations(data || [])
     setLoading(false)
     return { data, error }
-  }, [userId, filters])
+  }, [userId])
 
   const saveEvaluation = useCallback(async (result, metadata) => {
     const { data, error } = await supabase

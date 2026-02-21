@@ -40,12 +40,10 @@ export function useRubrics(userId) {
     if (!error && data) {
       const formatted = data.map(formatRubricFromDB)
       setRubrics(formatted)
-      if (!currentRubric && formatted.length > 0) {
-        setCurrentRubric(formatted[0])
-      }
+      setCurrentRubric(prev => prev || (formatted.length > 0 ? formatted[0] : null))
     }
     setLoading(false)
-  }, [userId, currentRubric])
+  }, [userId])
 
   const createRubric = useCallback(async (rubricData) => {
     const { data: newRubric, error } = await supabase

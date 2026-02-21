@@ -77,7 +77,6 @@ export default function PdfReportLayout({
             {criteriaScores.map((cs, i) => {
               const pct = cs.percentage ?? Math.round((cs.score / cs.maxScore) * 100)
               const color = getScoreColor(pct)
-              const bgMap = { '#10b981': '#ecfdf5', '#6366f1': '#eef2ff', '#f59e0b': '#fffbeb' }
               return (
                 <div key={i} className="pdf-score-card" style={{ borderTopColor: color }}>
                   <div className="pdf-score-card-name">{cs.name}</div>

@@ -36,18 +36,18 @@ export function calculateGrade(score) {
 
 export const PROVIDER_MODELS = {
     gemini: {
-        defaults: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash'],
-        labels: { 'gemini-2.5-flash': 'Gemini 2.5 Flash', 'gemini-2.5-pro': 'Gemini 2.5 Pro', 'gemini-2.0-flash': 'Gemini 2.0 Flash' },
+        defaults: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash-lite'],
+        labels: { 'gemini-2.5-flash': 'Gemini 2.5 Flash (추천)', 'gemini-2.5-pro': 'Gemini 2.5 Pro', 'gemini-2.0-flash-lite': 'Gemini 2.0 Flash Lite' },
         emoji: '🟦', label: 'Google Gemini', placeholder: 'AIza...', helpUrl: 'https://aistudio.google.com/apikey'
     },
     openai: {
-        defaults: ['gpt-4o', 'gpt-4o-mini', 'o3-mini'],
-        labels: { 'gpt-4o': 'GPT-4o', 'gpt-4o-mini': 'GPT-4o Mini', 'o3-mini': 'o3-mini' },
+        defaults: ['gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini'],
+        labels: { 'gpt-4.1-mini': 'GPT-4.1 Mini (추천)', 'gpt-4.1-nano': 'GPT-4.1 Nano (저렴)', 'gpt-4o-mini': 'GPT-4o Mini' },
         emoji: '🟩', label: 'OpenAI GPT', placeholder: 'sk-proj-...', helpUrl: 'https://platform.openai.com/api-keys'
     },
     claude: {
-        defaults: ['claude-3-5-sonnet-20241022', 'claude-3-5-haiku-20241022', 'claude-3-opus-20240229'],
-        labels: { 'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet', 'claude-3-5-haiku-20241022': 'Claude 3.5 Haiku', 'claude-3-opus-20240229': 'Claude 3 Opus' },
+        defaults: ['claude-haiku-4-5-20251001', 'claude-sonnet-4-6-20250514', 'claude-3-5-sonnet-20241022'],
+        labels: { 'claude-haiku-4-5-20251001': 'Claude Haiku 4.5 (추천)', 'claude-sonnet-4-6-20250514': 'Claude Sonnet 4.6', 'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet' },
         emoji: '🟧', label: 'Anthropic Claude', placeholder: 'sk-ant-...', helpUrl: 'https://console.anthropic.com/'
     }
 }

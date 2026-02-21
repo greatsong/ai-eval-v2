@@ -1,0 +1,410 @@
+.rubric-management {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* === 섹션 === */
+.rubric-section {
+  margin-bottom: 2rem;
+}
+
+.rubric-section h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eef2ff;
+}
+
+/* === 그리드 === */
+.rubric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 1rem;
+}
+
+/* === 카드 === */
+.rubric-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.rubric-card-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.rubric-icon {
+  font-size: 2rem;
+  line-height: 1;
+  min-width: 2.5rem;
+}
+
+.rubric-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.rubric-card-info h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.25rem;
+}
+
+.rubric-card-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.rubric-card-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.rubric-card-actions {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.rubric-delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #9ca3af;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.rubric-delete-btn:hover {
+  color: #ef4444;
+}
+
+/* === 카드 상세 === */
+.rubric-card-detail {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rubric-detail-criterion {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.rubric-detail-criterion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.rubric-detail-criterion-header strong {
+  font-size: 0.85rem;
+}
+
+.rubric-weight-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6366f1;
+  background: #eef2ff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.rubric-detail-criterion-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.rubric-level-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.rubric-level-table th {
+  text-align: left;
+  padding: 0.35rem 0.5rem;
+  background: #eef2ff;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.75rem;
+}
+
+.rubric-level-table td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+}
+
+.rubric-level-score {
+  font-weight: 700;
+  color: #6366f1;
+  width: 3rem;
+  text-align: center;
+}
+
+/* === AI 코치 === */
+.ai-coach-section {
+  background: #eef2ff;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.ai-coach-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #4f46e5;
+  margin-bottom: 0.25rem;
+}
+
+.ai-coach-icon {
+  font-size: 1.25rem;
+}
+
+.ai-coach-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.ai-coach-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ai-coach-input-row input {
+  flex: 1;
+  padding: 0.625rem 0.75rem;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.ai-coach-input-row input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.ai-coach-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #6366f1;
+}
+
+.spinner-sm {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #c7d2fe;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === 생성 폼 === */
+.rubric-form-card {
+  margin-bottom: 1.5rem;
+}
+
+.rubric-form-basic {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 아이콘 선택 */
+.icon-picker {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: #f3f4f6;
+}
+
+.icon-btn.active {
+  border-color: #6366f1;
+  background: #eef2ff;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* 평가 항목 폼 */
+.rubric-form-criteria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.criteria-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.criteria-form-header > label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.weight-sum {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.weight-sum.valid {
+  color: #10b981;
+  background: #ecfdf5;
+}
+
+.weight-sum.invalid {
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+/* 항목 입력 카드 */
+.criterion-form-item {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.criterion-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.criterion-form-number {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+/* 수준별 기준 */
+.levels-form {
+  margin-top: 0.75rem;
+}
+
+.levels-form > label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.level-form-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.375rem;
+}
+
+.level-score {
+  min-width: 2.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #6366f1;
+  text-align: center;
+}
+
+.level-form-row input {
+  flex: 1;
+  padding: 0.45rem 0.6rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.level-form-row input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 폼 액션 */
+.rubric-form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* === 반응형 === */
+@media (max-width: 768px) {
+  .rubric-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .rubric-card-header {
+    flex-direction: column;
+  }
+
+  .rubric-card-actions {
+    align-self: flex-end;
+  }
+
+  .criteria-form-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .ai-coach-input-row {
+    flex-direction: column;
+  }
+}

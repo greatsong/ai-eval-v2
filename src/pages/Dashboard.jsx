@@ -15,7 +15,7 @@ export default function Dashboard() {
   const { evaluations, fetchEvaluations } = useEvaluations(user?.id)
 
   useEffect(() => { fetchOverview() }, [fetchOverview])
-  useEffect(() => { if (selectedClassId) fetchDashboard() }, [selectedClassId, fetchDashboard])
+  useEffect(() => { fetchDashboard() }, [selectedClassId, fetchDashboard])
   useEffect(() => { if (user?.id) fetchEvaluations({ limit: 20 }) }, [user?.id, fetchEvaluations])
 
   return (
@@ -110,13 +110,65 @@ export default function Dashboard() {
             </div>
           )}
 
+          {/* 월별 점수 추이 */}
+          {dashboard.monthlyTrend?.length > 1 && (() => {
+            const data = dashboard.monthlyTrend
+            const scores = data.map(d => d.avgScore)
+            const minS = Math.min(...scores)
+            const maxS = Math.max(...scores)
+            const range = maxS - minS || 10
+            const padMin = Math.max(0, minS - range * 0.15)
+            const padMax = Math.min(100, maxS + range * 0.15)
+            const padRange = padMax - padMin || 10
+            const W = 500, H = 180, PX = 50, PY = 20
+            const chartW = W - PX * 2, chartH = H - PY * 2
+            const points = data.map((d, i) => ({
+              x: PX + (data.length === 1 ? chartW / 2 : (i / (data.length - 1)) * chartW),
+              y: PY + chartH - ((d.avgScore - padMin) / padRange) * chartH,
+              ...d
+            }))
+            const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ')
+            // Y축 눈금 (3개)
+            const yTicks = [padMin, (padMin + padMax) / 2, padMax].map(v => ({
+              v: Math.round(v),
+              y: PY + chartH - ((v - padMin) / padRange) * chartH
+            }))
+            return (
+              <div className="result-card">
+                <h3>월별 평균 점수 추이</h3>
+                <svg viewBox={`0 0 ${W} ${H}`} className="trend-chart">
+                  {/* Y축 눈금선 */}
+                  {yTicks.map((t, i) => (
+                    <g key={i}>
+                      <line x1={PX} y1={t.y} x2={W - PX} y2={t.y} stroke="#e5e7eb" strokeWidth="1" />
+                      <text x={PX - 8} y={t.y + 4} textAnchor="end" fontSize="11" fill="#9ca3af">{t.v}</text>
+                    </g>
+                  ))}
+                  {/* 선 */}
+                  <path d={linePath} fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  {/* 포인트 + 라벨 */}
+                  {points.map((p, i) => (
+                    <g key={i}>
+                      <circle cx={p.x} cy={p.y} r="5" fill="#6366f1" stroke="white" strokeWidth="2" />
+                      <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize="12" fontWeight="700" fill="#1f2937">{p.avgScore}</text>
+                      <text x={p.x} y={H - 2} textAnchor="middle" fontSize="10" fill="#6b7280">
+                        {p.month.slice(5)}월
+                      </text>
+                      <text x={p.x} y={p.y + 18} textAnchor="middle" fontSize="9" fill="#9ca3af">({p.count}건)</text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+            )
+          })()}
+
           {/* 항목별 평균 */}
           {dashboard.criteriaAverages?.length > 0 && (
             <div className="result-card">
               <h3>항목별 평균</h3>
               <div className="criteria-bars">
                 {dashboard.criteriaAverages.map((c, i) => {
-                  const pct = Math.round((c.avgScore / 5) * 100)
+                  const pct = Math.round(c.avgPercentage || 0)
                   return (
                     <div key={i} className="criteria-bar-item">
                       <span className="criteria-label">{c.name}</span>
@@ -126,7 +178,7 @@ export default function Dashboard() {
                           style={{ width: `${pct}%` }}
                         />
                       </div>
-                      <span className="criteria-pct">{c.avgScore}/5</span>
+                      <span className="criteria-pct">{pct}%</span>
                     </div>
                   )
                 })}

@@ -7,10 +7,11 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <div className="navbar-brand">AI 채팅 평가 v2</div>
+        <div className="navbar-brand">문제해결과정 평가</div>
         <div className="navbar-links">
           <NavLink to="/" end>평가</NavLink>
           <NavLink to="/classes">학급</NavLink>
+          <NavLink to="/rubrics">루브릭</NavLink>
           <NavLink to="/dashboard">대시보드</NavLink>
           <NavLink to="/guide">안내</NavLink>
           {isAdmin && <NavLink to="/admin">관리</NavLink>}

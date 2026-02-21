@@ -117,3 +117,12 @@
 
 .class-dashboard { margin-top: 1rem; }
 .class-dashboard .result-card { margin-bottom: 1.5rem; }
+
+/* 추이 차트 */
+.trend-chart {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin: 0.5rem auto 0;
+  display: block;
+}

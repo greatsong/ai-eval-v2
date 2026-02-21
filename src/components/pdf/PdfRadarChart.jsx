@@ -13,7 +13,6 @@ export default function PdfRadarChart({ criteriaScores }) {
   // 데이터 포인트
   const values = criteriaScores.map(cs => cs.percentage ?? Math.round((cs.score / cs.maxScore) * 100))
   const dataPoints = values.map((v, i) => getPoint(i, v))
-  const dataPath = dataPoints.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ') + ' Z'
 
   // 라벨 위치 (차트 바깥)
   const labelOffset = 22

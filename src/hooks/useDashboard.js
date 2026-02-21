@@ -6,10 +6,14 @@ export function useClassDashboard(classId) {
   const [loading, setLoading] = useState(false)
 
   const fetchDashboard = useCallback(async () => {
-    if (!classId) return
+    if (!classId) {
+      setDashboard(null)
+      return
+    }
     setLoading(true)
     const { data, error } = await supabase.rpc('get_class_dashboard', { p_class_id: classId })
     if (!error) setDashboard(data)
+    else setDashboard(null)
     setLoading(false)
     return { data, error }
   }, [classId])

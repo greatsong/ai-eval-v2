@@ -1,11 +1,25 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { supabase } from '../lib/supabase'
+
+// 번호를 숫자 우선으로 정렬 (1, 2, 3, 10, 11...)
+function compareStudentNumber(a, b) {
+  const numA = parseInt(a, 10)
+  const numB = parseInt(b, 10)
+  if (!isNaN(numA) && !isNaN(numB)) return numA - numB
+  return a.localeCompare(b)
+}
 
 export function useStudents(classId) {
   const [students, setStudents] = useState([])
   const [loading, setLoading] = useState(false)
+  const prevClassIdRef = useRef(classId)
 
   const fetchStudents = useCallback(async () => {
+    // classId 변경 시 이전 학생 목록 즉시 초기화
+    if (prevClassIdRef.current !== classId) {
+      setStudents([])
+      prevClassIdRef.current = classId
+    }
     if (!classId) return
     setLoading(true)
     const { data, error } = await supabase
@@ -23,7 +37,7 @@ export function useStudents(classId) {
       .insert({ ...studentData, class_id: classId })
       .select()
       .single()
-    if (!error) setStudents(prev => [...prev, data].sort((a, b) => a.student_number.localeCompare(b.student_number)))
+    if (!error) setStudents(prev => [...prev, data].sort((a, b) => compareStudentNumber(a.student_number, b.student_number)))
     return { data, error }
   }, [classId])
 
@@ -37,7 +51,7 @@ export function useStudents(classId) {
       .from('students')
       .upsert(rows, { onConflict: 'class_id,student_number' })
       .select()
-    if (!error) setStudents(data.sort((a, b) => a.student_number.localeCompare(b.student_number)))
+    if (!error && data) setStudents(data.sort((a, b) => compareStudentNumber(a.student_number, b.student_number)))
     return { data, error }
   }, [classId])
 

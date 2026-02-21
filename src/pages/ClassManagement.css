@@ -128,3 +128,209 @@
   padding: 2rem;
   font-size: 0.9rem;
 }
+
+/* 초대 배지 */
+.invite-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: #ecfdf5;
+  color: #10b981;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+/* 학생 평가 설정 패널 */
+.eval-settings-panel {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.eval-settings-panel h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.eval-settings-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0 0 1rem;
+}
+
+.eval-setting-group {
+  margin-bottom: 0.75rem;
+}
+
+.eval-setting-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.3rem;
+}
+
+.eval-setting-group select,
+.eval-setting-group input[type="password"],
+.eval-setting-group input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: white;
+}
+
+.eval-setting-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 0.2rem;
+}
+
+.eval-setting-hint a {
+  color: #6366f1;
+}
+
+/* 초대코드 행 */
+.invite-code-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.invite-code-display {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #6366f1;
+  background: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1.5px solid #c7d2fe;
+}
+
+/* 활성 토글 버튼 */
+.btn-active-toggle {
+  background: #10b981 !important;
+  color: white !important;
+  border: none;
+}
+
+.btn-active-toggle:hover {
+  background: #059669 !important;
+}
+
+/* URL 행 */
+.invite-url-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.invite-url {
+  font-size: 0.85rem;
+  color: #6366f1;
+  background: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  word-break: break-all;
+}
+
+.eval-settings-message {
+  font-size: 0.8rem;
+  color: #10b981;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* 평가 세션 아이템 */
+.session-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.session-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.session-rubric {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.session-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.session-code {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #6366f1;
+  background: #eef2ff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* 새 세션 폼 */
+.new-session-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: white;
+  border: 1.5px dashed #c7d2fe;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.new-session-form input,
+.new-session-form select {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .session-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .session-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}

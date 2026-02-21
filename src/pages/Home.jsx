@@ -48,7 +48,7 @@ export default function Home() {
 
       setEvaluationResult(result)
 
-      await saveEvaluation(result, {
+      const { error: saveError } = await saveEvaluation(result, {
         studentId: currentStudent?.id || null,
         classId: currentClass?.id || null,
         rubricId: currentRubric.id,
@@ -57,6 +57,10 @@ export default function Home() {
         model: apiSettings.models?.[apiSettings.provider],
         evaluationRuns: apiSettings.evaluationRuns
       })
+      if (saveError) {
+        console.warn('평가 결과 저장 실패:', saveError)
+        setError('평가는 완료되었으나 결과 저장에 실패했습니다. 다시 시도해주세요.')
+      }
     } catch (err) {
       setError(err.message || '평가 중 오류가 발생했습니다.')
     } finally {

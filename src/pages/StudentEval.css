@@ -1,0 +1,575 @@
+.student-eval-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff 0%, #fdf4ff 50%, #ecfdf5 100%);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.student-eval-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.student-eval-header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+}
+
+.student-eval-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+/* 진행 단계 */
+.step-indicator {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.step-dot {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: white;
+  border: 1.5px solid #e5e7eb;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  transition: all 0.2s;
+}
+
+.step-dot.active {
+  border-color: #c7d2fe;
+  color: #6366f1;
+}
+
+.step-dot.current {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: white;
+}
+
+.step-dot-number {
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.step-dot-label {
+  font-weight: 500;
+}
+
+/* 에러 */
+.student-error {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  margin-bottom: 1rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* 공통 카드 */
+.student-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  width: 100%;
+  max-width: 560px;
+}
+
+.student-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #1f2937;
+}
+
+.student-card p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+}
+
+/* Step 1: 코드 입력 */
+.code-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.code-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: border-color 0.2s;
+}
+
+.code-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* Step 2: 학급 정보 + 학생 그리드 */
+.class-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.class-info-name {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.class-info-subject {
+  background: #eef2ff;
+  color: #6366f1;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.class-info-teacher {
+  color: #6b7280;
+}
+
+.class-info-student {
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.class-info-session {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* 루브릭 정보 배너 */
+.rubric-info-banner {
+  background: #fdf4ff;
+  border: 1px solid #f0abfc;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.rubric-info-title {
+  font-size: 0.9rem;
+  color: #6b21a8;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rubric-criteria-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.rubric-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: white;
+  border: 1px solid #e9d5ff;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: #7c3aed;
+  font-weight: 500;
+}
+
+/* 학생 번호 입력 폼 */
+.student-lookup-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.student-number-input {
+  width: 140px;
+  padding: 0.75rem 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+}
+
+.student-number-input::-webkit-outer-spin-button,
+.student-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.student-number-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* 학생 확인 카드 */
+.student-confirm-card {
+  background: #eef2ff;
+  border: 2px solid #c7d2fe;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.student-confirm-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.student-confirm-number {
+  font-size: 1rem;
+  color: #6366f1;
+  font-weight: 700;
+  background: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+}
+
+.student-confirm-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.student-confirm-question {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.student-confirm-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.btn-back {
+  margin-top: 0.5rem;
+}
+
+/* Step 3: 채팅 입력 */
+.chat-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 200px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.chat-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.chat-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* Step 4: 결과 */
+.result-step-card {
+  max-width: 700px;
+}
+
+.result-action-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-download {
+  flex: 1;
+}
+
+.result-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid;
+  margin-bottom: 1.5rem;
+  background: #fafafa;
+}
+
+.result-grade {
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+}
+
+.result-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.score-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.score-max {
+  font-size: 1.1rem;
+  color: #9ca3af;
+}
+
+/* 항목별 점수 */
+.result-criteria-list {
+  margin-bottom: 1.5rem;
+}
+
+.result-criteria-list h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.result-criterion-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.criterion-name {
+  width: 140px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4b5563;
+  flex-shrink: 0;
+}
+
+.criterion-bar-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.criterion-bar-bg {
+  flex: 1;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.criterion-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.criterion-pct {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1f2937;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* 결과 섹션 */
+.result-section {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+.result-section h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #1f2937;
+}
+
+.result-section p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #374151;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.result-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.result-section li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.result-footer-note {
+  text-align: center;
+  padding: 1rem;
+  background: #eef2ff;
+  border-radius: 8px;
+  color: #4f46e5;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* 로딩 */
+.student-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.student-loading-overlay p {
+  margin-top: 1rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.loading-sub {
+  color: #9ca3af !important;
+  font-weight: 400 !important;
+  font-size: 0.85rem;
+}
+
+/* 버튼 스타일 (standalone 페이지이므로 자체 정의) */
+.student-eval-page .btn {
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.student-eval-page .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.student-eval-page .btn-primary {
+  background: #6366f1;
+  color: white;
+}
+
+.student-eval-page .btn-primary:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.student-eval-page .btn-secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.student-eval-page .btn-secondary:hover:not(:disabled) {
+  background: #e5e7eb;
+}
+
+.btn-evaluate {
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+}
+
+/* 로딩 스피너 */
+.student-eval-page .loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* PDF hidden */
+.student-eval-page .pdf-hidden-container {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 794px;
+  overflow: hidden;
+}
+
+/* 푸터 */
+.student-eval-footer {
+  margin-top: 3rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+.student-eval-footer p {
+  margin: 0;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .student-eval-page { padding: 1rem 0.75rem; }
+  .student-card { padding: 1.5rem 1rem; }
+  .student-lookup-form { flex-direction: column; }
+  .student-number-input { width: 100%; }
+  .code-form { flex-direction: column; }
+  .result-summary-card { flex-direction: column; text-align: center; gap: 0.5rem; padding: 1rem; }
+  .criterion-name { width: 100px; font-size: 0.8rem; }
+  .result-action-bar { flex-direction: column; }
+}
