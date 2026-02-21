@@ -263,9 +263,11 @@ body {
 
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
-  .navbar-inner { gap: 0.75rem; }
-  .navbar-brand { font-size: 0.85rem; }
-  .navbar-links a { padding: 0.375rem 0.5rem; font-size: 0.8rem; }
+  .navbar-inner { gap: 0.5rem; }
+  .navbar-brand { font-size: 0.8rem; min-width: 0; }
+  .navbar-links { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .navbar-links::-webkit-scrollbar { display: none; }
+  .navbar-links a { padding: 0.375rem 0.4rem; font-size: 0.75rem; white-space: nowrap; }
   .user-name { display: none; }
   .settings-grid { grid-template-columns: 1fr; }
 }
