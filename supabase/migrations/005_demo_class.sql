@@ -44,7 +44,7 @@ INSERT INTO classes (
   'COMEDU01', true,
   '00000000-0000-0000-0000-000000000001',
   'gemini',
-  'AIzaSyASNCxf5voz6Eq0Jj2lpydEv6nebc8GpPQ',
+  'REPLACE_WITH_YOUR_GEMINI_API_KEY',
   'gemini-2.5-flash'
 );
 
