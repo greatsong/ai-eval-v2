@@ -36,8 +36,8 @@ export function calculateGrade(score) {
 
 export const PROVIDER_MODELS = {
     gemini: {
-        defaults: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash-lite'],
-        labels: { 'gemini-2.5-flash': 'Gemini 2.5 Flash (추천)', 'gemini-2.5-pro': 'Gemini 2.5 Pro', 'gemini-2.0-flash-lite': 'Gemini 2.0 Flash Lite' },
+        defaults: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash'],
+        labels: { 'gemini-2.5-flash': 'Gemini 2.5 Flash (추천)', 'gemini-2.5-pro': 'Gemini 2.5 Pro', 'gemini-2.0-flash': 'Gemini 2.0 Flash' },
         emoji: '🟦', label: 'Google Gemini', placeholder: 'AIza...', helpUrl: 'https://aistudio.google.com/apikey'
     },
     openai: {
