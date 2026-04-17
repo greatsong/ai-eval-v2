@@ -19,10 +19,10 @@ export function EvaluationProvider({ children }) {
       return saved ? JSON.parse(saved) : {
         provider: 'gemini',
         apiKeys: { gemini: '', openai: '', claude: '' },
-        models: { gemini: 'gemini-2.5-flash', openai: 'gpt-4o', claude: 'claude-3-5-sonnet-20241022' },
+        models: { gemini: 'gemini-2.5-flash', openai: 'gpt-4o', claude: 'claude-sonnet-4-6' },
         evaluationRuns: 1
       }
-    } catch { return { provider: 'gemini', apiKeys: { gemini: '', openai: '', claude: '' }, models: { gemini: 'gemini-2.5-flash', openai: 'gpt-4o', claude: 'claude-3-5-sonnet-20241022' }, evaluationRuns: 1 } }
+    } catch { return { provider: 'gemini', apiKeys: { gemini: '', openai: '', claude: '' }, models: { gemini: 'gemini-2.5-flash', openai: 'gpt-4o', claude: 'claude-sonnet-4-6' }, evaluationRuns: 1 } }
   })
 
   useEffect(() => {

@@ -46,8 +46,8 @@ export const PROVIDER_MODELS = {
         emoji: '🟩', label: 'OpenAI GPT', placeholder: 'sk-proj-...', helpUrl: 'https://platform.openai.com/api-keys'
     },
     claude: {
-        defaults: ['claude-haiku-4-5-20251001', 'claude-sonnet-4-6-20250514', 'claude-3-5-sonnet-20241022'],
-        labels: { 'claude-haiku-4-5-20251001': 'Claude Haiku 4.5 (추천)', 'claude-sonnet-4-6-20250514': 'Claude Sonnet 4.6', 'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet' },
+        defaults: ['claude-haiku-4-5-20251001', 'claude-sonnet-4-6', 'claude-opus-4-7'],
+        labels: { 'claude-haiku-4-5-20251001': 'Claude Haiku 4.5 (추천)', 'claude-sonnet-4-6': 'Claude Sonnet 4.6', 'claude-opus-4-7': 'Claude Opus 4.7 (최신)' },
         emoji: '🟧', label: 'Anthropic Claude', placeholder: 'sk-ant-...', helpUrl: 'https://console.anthropic.com/'
     }
 }
