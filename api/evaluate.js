@@ -1,9 +1,13 @@
+import { guardRequest } from '../lib/requestGuard.js'
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { prompt, provider, model } = req.body
+  if (!guardRequest(req, res)) return
+
+  const { prompt, provider, model } = req.body || {}
 
   if (!prompt || !provider || !model) {
     return res.status(400).json({ error: 'prompt, provider, model are required' })
