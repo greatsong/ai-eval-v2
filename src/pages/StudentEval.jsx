@@ -109,7 +109,7 @@ export default function StudentEval() {
       setResult(evalResult)
 
       // DB에 결과 저장
-      await supabase.rpc('save_student_evaluation', {
+      const { data: saved, error: saveError } = await supabase.rpc('save_student_evaluation', {
         p_invite_code: inviteCode.trim().toUpperCase(),
         p_student_id: selectedStudent.id,
         p_evaluation: {
@@ -126,6 +126,10 @@ export default function StudentEval() {
           evaluation_meta: evalResult.evaluationMeta || null
         }
       })
+      // 저장에 실패해도 결과는 보여 준다. 저장되지 않았다는 사실만 알린다
+      if (saveError || saved?.success === false) {
+        setError('평가 결과를 저장하지 못했습니다. 이 화면을 선생님께 보여 주세요.')
+      }
 
       setStep(STEPS.RESULT)
     } catch (err) {
